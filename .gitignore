@@ -1,0 +1,40 @@
+# --- Python / Backend ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.db
+*.sqlite3
+.pytest_cache/
+
+# --- Node / Frontend ---
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Env & secrets ---
+.env
+.env.local
+*.pem
+
+# --- Storage (uploaded content shouldn't be committed) ---
+storage/floor_plans/*
+storage/room_photos/*
+storage/uploads/*
+!storage/floor_plans/.gitkeep
+!storage/room_photos/.gitkeep
+!storage/uploads/.gitkeep
+
+# --- OS / Editor ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --- Docker ---
+*.log
