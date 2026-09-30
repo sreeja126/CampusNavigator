@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react'
 
 
 function App() {
-  
-
-  
 
   return (
    <div className="p-8 font-sans">
