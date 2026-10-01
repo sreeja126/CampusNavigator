@@ -1,13 +1,48 @@
-import { useEffect, useState } from 'react'
-
-
-function App() {
-
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import FacultyDirectory from './pages/FacultyDirectory'
+import TimetableViewer from './pages/TimetableViewer'
+function HomePage() {
   return (
-   <div className="p-8 font-sans">
-  <h1 className="text-3xl font-bold text-blue-600">Campus Navigator</h1>
-  </div>
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-2xl font-bold text-gray-900">Campus Navigator</h1>
+      <p className="text-gray-500 mt-1">
+        Find faculty cabins, classrooms, and timetables — without the confusion.
+      </p>
+    </div>
   )
 }
 
-export default App;
+function NavBar() {
+  return (
+    <nav className="border-b border-gray-200 bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-3 flex gap-2">
+        <Link to="/" className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
+          Home
+        </Link>
+        <Link to="/faculty" className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
+          Faculty Directory
+        </Link>
+        <Link to="/timetable" className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
+  Timetable
+</Link>
+      </div>
+    </nav>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-50">
+        <NavBar />
+        <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/faculty" element={<FacultyDirectory />} />
+      <Route path="/timetable" element={<TimetableViewer />} />
+</Routes>
+      </div>
+    </BrowserRouter>
+  )
+}
+
+export default App

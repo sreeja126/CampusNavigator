@@ -1,0 +1,9 @@
+class_section,day_of_week,period_number,start_time,end_time,subject,room_no,faculty_name
+CSE-3A,Monday,1,09:00,09:50,Data Structures,B-101,Dr. R. Sharma
+CSE-3A,Monday,2,09:50,10:40,Operating Systems,B-101,Dr. K. Reddy
+CSE-3A,Monday,3,11:00,11:50,Database Systems,B-101,J. Saritha
+CSE-3A,Tuesday,1,09:00,09:50,Operating Systems,B-101,Dr. K. Reddy
+CSE-3A,Tuesday,2,09:50,10:40,Data Structures,B-101,Dr. R. Sharma
+CSE-3A,Wednesday,1,09:00,09:50,Computer Networks,B-101,Dr. M. Rao
+CSE-3B,Monday,1,09:00,09:50,Database Systems,B-102,J. Saritha
+CSE-3B,Monday,2,09:50,10:40,Data Structures,B-102,Dr. R. Sharma
