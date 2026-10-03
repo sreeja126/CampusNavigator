@@ -6,6 +6,8 @@ from typing import List, Optional
 from app.database import get_db
 from app.models.faculty import Faculty
 from app.schemas.faculty import FacultyCreate, FacultyUpdate, FacultyOut
+from app.schemas.search import FacultyStatusOut
+from app.services.current_status import get_current_status
 
 router = APIRouter()
 
@@ -43,6 +45,19 @@ def get_faculty(faculty_id: int, db: Session = Depends(get_db)):
     if not faculty:
         raise HTTPException(status_code=404, detail="Faculty not found")
     return faculty
+
+
+@router.get("/{faculty_id}/status", response_model=FacultyStatusOut)
+def get_faculty_status(faculty_id: int, db: Session = Depends(get_db)):
+    """
+    Returns where this faculty member currently is, based on today's timetable:
+    in a class (with room/subject/until-time) or in their cabin by default.
+    """
+    faculty = db.query(Faculty).filter(Faculty.id == faculty_id).first()
+    if not faculty:
+        raise HTTPException(status_code=404, detail="Faculty not found")
+
+    return get_current_status(faculty, db)
 
 
 @router.post("/", response_model=FacultyOut, status_code=201)

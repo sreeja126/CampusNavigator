@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import Base, engine
-from app.api import routes_faculty, routes_timetable
+from app.api import routes_faculty, routes_timetable, routes_search
 
 # Create tables on startup. This is fine for early development;
 # once the schema stabilizes, switch to Alembic migrations instead.
@@ -40,8 +40,9 @@ def health_check():
 
 
 app.include_router(routes_faculty.router, prefix="/api/faculty", tags=["Faculty"])
-
 app.include_router(routes_timetable.router, prefix="/api/timetable", tags=["Timetable"])
+app.include_router(routes_search.router, prefix="/api/search", tags=["Search"])
+
 # Future modules will plug in like this:
-# from app.api import routes_timetable, routes_rooms
+# from app.api import routes_rooms
 # app.include_router(routes_rooms.router, prefix="/api/rooms", tags=["Rooms"])

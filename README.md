@@ -70,9 +70,9 @@ campus-navigator/
 ## Modules / Roadmap
 
 - [x] Module 1 — Project skeleton
-- [ ] Module 2 — Faculty directory
-- [ ] Module 3 — Timetable upload & viewer
-- [ ] Module 4 — Search + live "who's here now" status
+- [x] Module 2 — Faculty directory
+- [x] Module 3 — Timetable upload & viewer
+- [x] Module 4 — Search + live "who's here now" status
 - [ ] Module 5 — Buildings & rooms data
 - [ ] Module 6 — Campus map (building-level)
 - [ ] Module 7 — Floor plans with clickable room hotspots + photos

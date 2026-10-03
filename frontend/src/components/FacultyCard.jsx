@@ -35,6 +35,20 @@ function FacultyCard({ faculty }) {
             <span className="text-gray-500 truncate">{faculty.email}</span>
           )}
         </div>
+
+        {faculty.liveStatus && (
+          <div className="mt-2">
+            {faculty.liveStatus.status === 'in_class' ? (
+              <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-medium px-2 py-1 rounded-full">
+                🟢 In class — {faculty.liveStatus.location} until {faculty.liveStatus.until}
+              </span>
+            ) : faculty.liveStatus.status === 'in_cabin' ? (
+              <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
+                🔵 In cabin now
+              </span>
+            ) : null}
+          </div>
+        )}
       </div>
     </div>
   )
