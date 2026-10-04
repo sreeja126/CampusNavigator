@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import FacultyDirectory from './pages/FacultyDirectory'
 import TimetableViewer from './pages/TimetableViewer'
 import SearchPage from './pages/SearchPage'
+import BuildingsPage from './pages/BuildingsPage'
 
 function HomePage() {
   return (
@@ -24,6 +25,7 @@ function NavBar() {
         <Link to="/faculty" className={linkClass}>Faculty Directory</Link>
         <Link to="/timetable" className={linkClass}>Timetable</Link>
         <Link to="/search" className={linkClass}>Search</Link>
+        <Link to="/buildings" className={linkClass}>Buildings</Link>
       </div>
     </nav>
   )
@@ -39,6 +41,7 @@ function App() {
           <Route path="/faculty" element={<FacultyDirectory />} />
           <Route path="/timetable" element={<TimetableViewer />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/buildings" element={<BuildingsPage />} />
         </Routes>
       </div>
     </BrowserRouter>
