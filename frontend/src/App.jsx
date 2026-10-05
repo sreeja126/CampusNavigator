@@ -3,6 +3,7 @@ import FacultyDirectory from './pages/FacultyDirectory'
 import TimetableViewer from './pages/TimetableViewer'
 import SearchPage from './pages/SearchPage'
 import BuildingsPage from './pages/BuildingsPage'
+import CampusMap from './pages/CampusMap'
 
 function HomePage() {
   return (
@@ -26,6 +27,7 @@ function NavBar() {
         <Link to="/timetable" className={linkClass}>Timetable</Link>
         <Link to="/search" className={linkClass}>Search</Link>
         <Link to="/buildings" className={linkClass}>Buildings</Link>
+        <Link to="/map" className={linkClass}>Campus Map</Link>
       </div>
     </nav>
   )
@@ -42,6 +44,7 @@ function App() {
           <Route path="/timetable" element={<TimetableViewer />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/buildings" element={<BuildingsPage />} />
+          <Route path="/map" element={<CampusMap />} />
         </Routes>
       </div>
     </BrowserRouter>
