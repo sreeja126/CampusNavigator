@@ -1,4 +1,4 @@
-   import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getBuildings } from '../api/buildings'
 import { getRooms } from '../api/rooms'
@@ -101,12 +101,20 @@ function CampusMap() {
                   </ul>
                 )}
 
-                <Link
-                  to="/buildings"
-                  className="inline-block mt-4 text-sm text-blue-600 hover:underline"
-                >
-                  View all buildings →
-                </Link>
+                <div className="flex flex-col gap-1 mt-4">
+                  <Link
+                    to={`/buildings/${selected.id}/floor-plan`}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    View floor plan →
+                  </Link>
+                  <Link
+                    to="/buildings"
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    View all buildings →
+                  </Link>
+                </div>
               </>
             )}
           </div>

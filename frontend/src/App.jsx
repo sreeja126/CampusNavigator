@@ -4,6 +4,7 @@ import TimetableViewer from './pages/TimetableViewer'
 import SearchPage from './pages/SearchPage'
 import BuildingsPage from './pages/BuildingsPage'
 import CampusMap from './pages/CampusMap'
+import FloorPlan from './pages/FloorPlan'
 
 function HomePage() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/buildings" element={<BuildingsPage />} />
           <Route path="/map" element={<CampusMap />} />
+          <Route path="/buildings/:buildingId/floor-plan" element={<FloorPlan />} />
         </Routes>
       </div>
     </BrowserRouter>

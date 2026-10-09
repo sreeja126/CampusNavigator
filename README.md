@@ -75,6 +75,6 @@ campus-navigator/
 - [x] Module 4 — Search + live "who's here now" status
 - [x] Module 5 — Buildings & rooms data
 - [x] Module 6 — Campus map (building-level)
-- [ ] Module 7 — Floor plans with clickable room hotspots + photos
+- [x] Module 7 — Floor plans with clickable room hotspots + photos
 - [ ] Module 8 — Admin dashboard
 - [ ] Module 9 — Polish & deployment
