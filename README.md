@@ -76,5 +76,5 @@ campus-navigator/
 - [x] Module 5 — Buildings & rooms data
 - [x] Module 6 — Campus map (building-level)
 - [x] Module 7 — Floor plans with clickable room hotspots + photos
-- [ ] Module 8 — Admin dashboard
+- [x] Module 8 — Admin dashboard, Login & Registration
 - [ ] Module 9 — Polish & deployment
