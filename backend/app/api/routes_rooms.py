@@ -5,6 +5,7 @@ from typing import List, Optional
 from app.database import get_db
 from app.models.room import Room
 from app.schemas.room import RoomCreate, RoomUpdate, RoomOut
+from app.dependencies import get_current_admin
 
 router = APIRouter()
 
@@ -16,11 +17,6 @@ def list_rooms(
     room_type: Optional[str] = Query(None),
     db: Session = Depends(get_db),
 ):
-    """
-    List rooms, optionally filtered by building, floor, or type.
-    e.g. GET /api/rooms?building_id=1&floor=2
-         GET /api/rooms?room_type=lab
-    """
     query = db.query(Room)
 
     if building_id is not None:
@@ -42,7 +38,11 @@ def get_room(room_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=RoomOut, status_code=201)
-def create_room(payload: RoomCreate, db: Session = Depends(get_db)):
+def create_room(
+    payload: RoomCreate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     room = Room(**payload.model_dump())
     db.add(room)
     db.commit()
@@ -51,7 +51,12 @@ def create_room(payload: RoomCreate, db: Session = Depends(get_db)):
 
 
 @router.patch("/{room_id}", response_model=RoomOut)
-def update_room(room_id: int, payload: RoomUpdate, db: Session = Depends(get_db)):
+def update_room(
+    room_id: int,
+    payload: RoomUpdate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     room = db.query(Room).filter(Room.id == room_id).first()
     if not room:
         raise HTTPException(status_code=404, detail="Room not found")
@@ -66,7 +71,11 @@ def update_room(room_id: int, payload: RoomUpdate, db: Session = Depends(get_db)
 
 
 @router.delete("/{room_id}", status_code=204)
-def delete_room(room_id: int, db: Session = Depends(get_db)):
+def delete_room(
+    room_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     room = db.query(Room).filter(Room.id == room_id).first()
     if not room:
         raise HTTPException(status_code=404, detail="Room not found")

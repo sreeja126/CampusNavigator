@@ -8,6 +8,7 @@ from app.models.faculty import Faculty
 from app.schemas.faculty import FacultyCreate, FacultyUpdate, FacultyOut
 from app.schemas.search import FacultyStatusOut
 from app.services.current_status import get_current_status
+from app.dependencies import get_current_admin
 
 router = APIRouter()
 
@@ -61,7 +62,11 @@ def get_faculty_status(faculty_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=FacultyOut, status_code=201)
-def create_faculty(payload: FacultyCreate, db: Session = Depends(get_db)):
+def create_faculty(
+    payload: FacultyCreate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     faculty = Faculty(**payload.model_dump())
     db.add(faculty)
     db.commit()
@@ -70,7 +75,12 @@ def create_faculty(payload: FacultyCreate, db: Session = Depends(get_db)):
 
 
 @router.patch("/{faculty_id}", response_model=FacultyOut)
-def update_faculty(faculty_id: int, payload: FacultyUpdate, db: Session = Depends(get_db)):
+def update_faculty(
+    faculty_id: int,
+    payload: FacultyUpdate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     faculty = db.query(Faculty).filter(Faculty.id == faculty_id).first()
     if not faculty:
         raise HTTPException(status_code=404, detail="Faculty not found")
@@ -85,7 +95,11 @@ def update_faculty(faculty_id: int, payload: FacultyUpdate, db: Session = Depend
 
 
 @router.delete("/{faculty_id}", status_code=204)
-def delete_faculty(faculty_id: int, db: Session = Depends(get_db)):
+def delete_faculty(
+    faculty_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     faculty = db.query(Faculty).filter(Faculty.id == faculty_id).first()
     if not faculty:
         raise HTTPException(status_code=404, detail="Faculty not found")

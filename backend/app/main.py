@@ -9,6 +9,7 @@ from app.api import (
     routes_search,
     routes_buildings,
     routes_rooms,
+    routes_auth,
 )
 
 # Create tables on startup. This is fine for early development;
@@ -50,3 +51,4 @@ app.include_router(routes_timetable.router, prefix="/api/timetable", tags=["Time
 app.include_router(routes_search.router, prefix="/api/search", tags=["Search"])
 app.include_router(routes_buildings.router, prefix="/api/buildings", tags=["Buildings"])
 app.include_router(routes_rooms.router, prefix="/api/rooms", tags=["Rooms"])
+app.include_router(routes_auth.router, prefix="/api/auth", tags=["Auth"])

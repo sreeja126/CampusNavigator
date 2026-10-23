@@ -7,6 +7,7 @@ from app.models.timetable import TimetableEntry
 from app.models.faculty import Faculty
 from app.schemas.timetable import TimetableEntryOut, UploadSummary
 from app.services.timetable_parser import parse_and_store_timetable
+from app.dependencies import get_current_admin
 
 router = APIRouter()
 
@@ -14,7 +15,11 @@ DAY_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
 
 
 @router.post("/upload", response_model=UploadSummary)
-async def upload_timetable(file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_timetable(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     """
     Upload a CSV or Excel file to bulk-insert timetable entries.
     Expected columns: class_section, day_of_week, period_number, start_time,
@@ -47,7 +52,6 @@ def get_timetable(
 
     entries = query.all()
 
-    # Sort by day-of-week order, then period number
     entries.sort(
         key=lambda e: (
             DAY_ORDER.index(e.day_of_week) if e.day_of_week in DAY_ORDER else 99,
@@ -55,7 +59,6 @@ def get_timetable(
         )
     )
 
-    # Attach faculty_name for display convenience
     results = []
     for e in entries:
         out = TimetableEntryOut.model_validate(e)
@@ -67,7 +70,7 @@ def get_timetable(
     return results
 
 
-@router.get("/class-sections",  response_model=List[str])
+@router.get("/class-sections", response_model=List[str])
 def list_class_sections(db: Session = Depends(get_db)):
     """Returns the distinct list of class sections currently in the timetable."""
     rows = db.query(TimetableEntry.class_section).distinct().all()

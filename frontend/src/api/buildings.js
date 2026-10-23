@@ -9,3 +9,8 @@ export async function getBuilding(id) {
   const res = await apiClient.get(`/api/buildings/${id}`)
   return res.data
 }
+
+export async function updateBuilding(id, data) {
+  const res = await apiClient.patch(`/api/buildings/${id}`, data)
+  return res.data
+}

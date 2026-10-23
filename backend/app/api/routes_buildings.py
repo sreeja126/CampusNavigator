@@ -5,6 +5,7 @@ from typing import List
 from app.database import get_db
 from app.models.building import Building
 from app.schemas.building import BuildingCreate, BuildingUpdate, BuildingOut
+from app.dependencies import get_current_admin
 
 router = APIRouter()
 
@@ -23,7 +24,11 @@ def get_building(building_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=BuildingOut, status_code=201)
-def create_building(payload: BuildingCreate, db: Session = Depends(get_db)):
+def create_building(
+    payload: BuildingCreate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     building = Building(**payload.model_dump())
     db.add(building)
     db.commit()
@@ -32,7 +37,12 @@ def create_building(payload: BuildingCreate, db: Session = Depends(get_db)):
 
 
 @router.patch("/{building_id}", response_model=BuildingOut)
-def update_building(building_id: int, payload: BuildingUpdate, db: Session = Depends(get_db)):
+def update_building(
+    building_id: int,
+    payload: BuildingUpdate,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     building = db.query(Building).filter(Building.id == building_id).first()
     if not building:
         raise HTTPException(status_code=404, detail="Building not found")
@@ -47,7 +57,11 @@ def update_building(building_id: int, payload: BuildingUpdate, db: Session = Dep
 
 
 @router.delete("/{building_id}", status_code=204)
-def delete_building(building_id: int, db: Session = Depends(get_db)):
+def delete_building(
+    building_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(get_current_admin),
+):
     building = db.query(Building).filter(Building.id == building_id).first()
     if not building:
         raise HTTPException(status_code=404, detail="Building not found")

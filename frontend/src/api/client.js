@@ -1,4 +1,4 @@
-   import axios from 'axios'
+import axios from 'axios'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
@@ -7,6 +7,15 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+})
+
+// Attach the logged-in token (user or admin) to every request automatically.
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('cn_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
 })
 
 export default apiClient

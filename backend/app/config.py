@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     secret_key: str = "dev-secret-change-me"
     environment: str = "development"
 
+    # Admin login (Module 8) — change these in your .env for anything beyond local testing
+    admin_username: str = "admin"
+    admin_password: str = "changeme123"
+
     class Config:
         env_file = ".env"
         case_sensitive = False
